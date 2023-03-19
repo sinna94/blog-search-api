@@ -18,10 +18,6 @@ class SearchController(
   @GetMapping
   fun searchBlog(
     searchParams: SearchParams,
-//    @RequestParam query: String,
-//    @RequestParam(required = false) sort: SortType?,
-//    @RequestParam(required = false) page: Int?,
-//    @RequestParam(required = false) size: Int?,
   ): ResponseEntity<SearchResult> {
     return ResponseEntity.ok(searchService.searchBlog(searchParams))
   }

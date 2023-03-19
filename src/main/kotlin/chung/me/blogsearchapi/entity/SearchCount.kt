@@ -7,7 +7,6 @@ import jakarta.persistence.*
 class SearchCount(
   query: String,
 ) {
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long = 0L
@@ -22,6 +21,6 @@ class SearchCount(
     private set
 
   fun increaseCount() {
-    count += 1
+    count++
   }
 }

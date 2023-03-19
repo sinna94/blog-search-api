@@ -3,13 +3,13 @@ package chung.me.blogsearchapi.searchclient
 import chung.me.blogsearchapi.searchclient.kakao.Document
 import chung.me.blogsearchapi.searchclient.naver.Item
 
-class SearchResult(
+data class SearchResult(
   val totalCount: Int,
   val pageableCount: Int,
   val postList: List<PostInfo>,
 )
 
-class PostInfo private constructor(
+data class PostInfo constructor(
   val title: String,
   val contents: String,
   val url: String,

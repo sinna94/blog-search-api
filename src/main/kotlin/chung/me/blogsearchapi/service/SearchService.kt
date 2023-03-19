@@ -7,7 +7,9 @@ import chung.me.blogsearchapi.searchclient.SearchResult
 import chung.me.blogsearchapi.searchclient.factory.SearchClientFactory
 import chung.me.blogsearchapi.searchclient.factory.SearchClientType
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.server.ResponseStatusException
 
 @Service
 class SearchService(
@@ -15,7 +17,7 @@ class SearchService(
   private val searchCountRepository: SearchCountRepository,
 ) {
 
-  @Transactional
+  @Transactional(isolation = Isolation.REPEATABLE_READ)
   fun searchBlog(searchParams: SearchParams): SearchResult {
     val searchResult = search(searchParams, SearchClientType.KAKAO, SearchClientType.NAVER)
     increaseSearchCount(searchParams.query)
@@ -30,18 +32,36 @@ class SearchService(
     try {
       val (query, sort, page, size) = searchParams
       return searchClientFactory.create(clientType).search(query, sort, page, size)
-    } catch (e: RuntimeException) {
+    } catch (e: ResponseStatusException) {
+      if (e.statusCode.is4xxClientError) {
+        throw e
+      }
       if (backupClientType != null) {
         return search(searchParams, backupClientType)
       }
-      throw RuntimeException()
+      throw e
     }
   }
 
   private fun increaseSearchCount(query: String) {
-    val searchCount = searchCountRepository.findByQuery(query) ?: SearchCount(query)
-    searchCount.increaseCount()
-    searchCountRepository.save(searchCount)
+    println("query: $query")
+    val lowercaseQuery = query.lowercase()
+    searchCountRepository.increaseCount(lowercaseQuery)
+//    val searchCount = searchCountRepository.findByQuery(lowercaseQuery) ?: SearchCount(lowercaseQuery)
+//    searchCount.increaseCount()
+//    println("id: ${searchCount.id} - ${searchCount.query} : ${searchCount.count}")
+//    println("save: $query")
+//    searchCountRepository.saveAndFlush(searchCount)
+
+//    val updatedRowSize = searchCountRepository.increaseCount(lowercaseQuery)
+//
+//    if (updatedRowSize == 0) {
+//      val searchCount = SearchCount(lowercaseQuery)
+//      searchCount.increaseCount()
+//      searchCountRepository.save(searchCount)
+//    }
+
+//    searchCount.increaseCount()
   }
 
   @Transactional(readOnly = true)
