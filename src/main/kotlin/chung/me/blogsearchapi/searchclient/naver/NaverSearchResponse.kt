@@ -1,26 +1,31 @@
-package chung.me.blogsearchapi.searchclient.kakao
+package chung.me.blogsearchapi.searchclient.naver
 
+import chung.me.blogsearchapi.searchclient.ApiSearchResponse
+import chung.me.blogsearchapi.searchclient.PostInfo
+import chung.me.blogsearchapi.searchclient.SearchResult
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.time.OffsetDateTime
 
-data class KakaoSearchResponse(
-  val meta: Meta,
-  val documents: List<Document>,
-)
+data class NaverSearchResponse(
+  val lastBuildDate: String,
+  val total: Int,
+  val start: Int,
+  val display: Int,
+  val items: List<Item>,
+) : ApiSearchResponse {
+  override fun toSearchResult(): SearchResult {
+    val postInfoList = items.map { item -> PostInfo.create(item) }
+    return SearchResult(total, start, postInfoList)
+  }
+}
 
-data class Meta(
-  val totalCount: Int,
-  val pageableCount: Int,
-  val isEnd: Boolean,
-)
-
-data class Document(
+data class Item(
   val title: String,
-  val contents: String,
-  val url: String,
-  @get:JsonProperty("blogname")
-  val blogName: String,
-  val thumbnail: String,
-  @get:JsonProperty("datetime")
-  val dateTime: OffsetDateTime,
+  val link: String,
+  val description: String,
+  @get:JsonProperty("bloggername")
+  val bloggerName: String,
+  @get:JsonProperty("bloggerlink")
+  val bloggerLink: String,
+  @get:JsonProperty("postdate")
+  val postDate: String,
 )

@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class BlogSearchApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<BlogSearchApiApplication>(*args)
+  runApplication<BlogSearchApiApplication>(*args)
 }

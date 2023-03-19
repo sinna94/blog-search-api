@@ -2,9 +2,8 @@ package chung.me.blogsearchapi.searchclient
 
 import chung.me.blogsearchapi.searchclient.kakao.Document
 import chung.me.blogsearchapi.searchclient.naver.Item
-import java.time.OffsetDateTime
 
-class SearchResponse(
+class SearchResult(
   val totalCount: Int,
   val pageableCount: Int,
   val postList: List<PostInfo>,
