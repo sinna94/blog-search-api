@@ -150,6 +150,7 @@ class SearchControllerTest(
   }
 
   @Test
+  @DisplayName("멀티 스레드 환경에서 검색된 검색어의 수를 조회")
   fun searchPopularKeyword() {
     doReturn(
       SearchResult(
