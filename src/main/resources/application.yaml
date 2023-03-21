@@ -14,9 +14,13 @@ spring:
       hibernate:
         globally_quoted_identifiers: true
 
-auth:
+api:
   kakao:
     key: ${KAKAO_KEY}
+    base-url: ${KAKAO_BASE_URL:https://dapi.kakao.com}
+    path: ${KAKAO_PATH:/v2/search/blog}
   naver:
     client-id: ${NAVER_CLIENT_ID}
     client-secret: ${NAVER_CLIENT_SECRET}
+    base-url: ${NAVER_BASE_URL:https://openapi.naver.com}
+    path: ${NAVER_PATH:/v1/search/blog}

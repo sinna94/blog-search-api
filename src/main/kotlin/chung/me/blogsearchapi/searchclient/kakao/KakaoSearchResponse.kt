@@ -17,7 +17,9 @@ data class KakaoSearchResponse(
 }
 
 data class Meta(
+  @get:JsonProperty("total_count")
   val totalCount: Int,
+  @get:JsonProperty("pageable_count")
   val pageableCount: Int,
   val isEnd: Boolean,
 )

@@ -30,7 +30,7 @@ class SearchController(
 
 data class SearchParams(
   val query: String,
-  val sort: SortType?,
-  val page: Int?,
-  val size: Int?,
+  val sort: SortType? = null,
+  val page: Int? = null,
+  val size: Int? = null,
 )

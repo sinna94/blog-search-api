@@ -9,13 +9,12 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
 @Component
-class NaverSearchClient : AbstractSearchClient() {
-
-  @Value("\${auth.naver.client-id}")
-  private lateinit var clientId: String
-
-  @Value("\${auth.naver.client-secret}")
-  private lateinit var clientSecret: String
+class NaverSearchClient(
+  @Value("\${api.naver.client-id}") private val clientId: String,
+  @Value("\${api.naver.client-secret}") private val clientSecret: String,
+  @Value("\${api.naver.base-url}") private val baseUrl: String,
+  @Value("\${api.naver.path}") private val path: String,
+) : AbstractSearchClient() {
 
   override fun search(query: String, sort: SortType?, page: Int?, size: Int?): SearchResult {
     logger.info("Searching Naver")
@@ -23,7 +22,7 @@ class NaverSearchClient : AbstractSearchClient() {
     return buildWebClient()
       .get()
       .uri { uriBuilder ->
-        uriBuilder.path("/v1/search/blog")
+        uriBuilder.path(path)
           .queryParam("query", query)
         sort?.let { uriBuilder.queryParam("sort", it.toSpecificSortType(SearchClientType.NAVER)) }
         page?.let { uriBuilder.queryParam("start", it) }
@@ -35,7 +34,7 @@ class NaverSearchClient : AbstractSearchClient() {
   }
 
   private fun buildWebClient() = WebClient.builder()
-    .baseUrl("https://openapi.naver.com")
+    .baseUrl(baseUrl)
     .defaultHeaders {
       it.set("X-Naver-Client-Id", clientId)
       it.set("X-Naver-Client-Secret", clientSecret)

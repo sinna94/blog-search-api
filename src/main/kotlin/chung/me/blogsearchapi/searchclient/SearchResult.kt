@@ -25,7 +25,7 @@ data class PostInfo constructor(
 
     fun create(item: Item): PostInfo {
       val (title, link, description, bloggerName, _, postDate) = item
-      return PostInfo(title, link, description, bloggerName, null, postDate)
+      return PostInfo(title, description, link, bloggerName, null, postDate)
     }
   }
 }

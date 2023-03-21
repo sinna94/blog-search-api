@@ -14,7 +14,7 @@ data class NaverSearchResponse(
 ) : ApiSearchResponse {
   override fun toSearchResult(): SearchResult {
     val postInfoList = items.map { item -> PostInfo.create(item) }
-    return SearchResult(total, start, postInfoList)
+    return SearchResult(total, total, postInfoList)
   }
 }
 

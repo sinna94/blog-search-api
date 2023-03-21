@@ -29,6 +29,8 @@ dependencies {
   implementation("org.apache.commons:commons-lang3:3.12.0")
   runtimeOnly("com.h2database:h2")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("com.squareup.okhttp3:okhttp:4.10.0")
+  testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
 }
 
 tasks.withType<KotlinCompile> {

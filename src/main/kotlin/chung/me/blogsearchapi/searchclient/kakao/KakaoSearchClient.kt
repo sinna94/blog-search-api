@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
 @Component
-class KakaoSearchClient : AbstractSearchClient() {
-  @Value("\${auth.kakao.key}")
-  private lateinit var key: String
+class KakaoSearchClient(
+  @Value("\${api.kakao.key}") private val key: String,
+  @Value("\${api.kakao.base-url}") private val baseUrl: String,
+  @Value("\${api.kakao.path}") private val path: String,
+) : AbstractSearchClient() {
 
   override fun search(query: String, sort: SortType?, page: Int?, size: Int?): SearchResult {
     logger.info("Searching Kakao")
@@ -18,7 +20,7 @@ class KakaoSearchClient : AbstractSearchClient() {
     return buildWebClient()
       .get()
       .uri { uriBuilder ->
-        uriBuilder.path("/v2/search/blog")
+        uriBuilder.path(path)
           .queryParam("query", query)
         sort?.let { uriBuilder.queryParam("sort", it.toSpecificSortType(SearchClientType.KAKAO)) }
         page?.let { uriBuilder.queryParam("page", it) }
@@ -30,7 +32,7 @@ class KakaoSearchClient : AbstractSearchClient() {
   }
 
   private fun buildWebClient() = WebClient.builder()
-    .baseUrl("https://dapi.kakao.com")
+    .baseUrl(baseUrl)
     .defaultHeader(HttpHeaders.AUTHORIZATION, "KakaoAK $key")
     .build()
 }
