@@ -1,5 +1,8 @@
 # blog-search-api
 
+## 실행 환경
+Java 17
+
 ## Executable jar 다운로드 링크
 [Executable jar 다운로드 링크](https://github.com/sinna94/blog-search-api/raw/master/blog-search-api.jar)
 
