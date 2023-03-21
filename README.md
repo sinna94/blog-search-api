@@ -1,5 +1,8 @@
 # blog-search-api
 
+## Executable jar 다운로드 링크
+[Executable jar 다운로드 링크](https://github.com/sinna94/blog-search-api/raw/master/blog-search-api.jar)
+
 ## API 명세
 
 ### 블로그 검색
@@ -11,11 +14,11 @@ GET http://localhost:8080/api/v1/search?query={{$query}}&sort={{$sort}}&page={{$
 #### 파라미터
 
 | 파라미터  | 설명                                       | nullable |
-|-------|------------------------------------------|----------|
-| query | 검색어                                      | X        |
-| sort  | 정렬 조건, accuracy(정확도순), recency(최신순) 중 선택 | X        |
-| page  | 결과 페이지 번호                                | X        |
-| size  | 한 페이지에 보여질 문서 수                          | X        |
+|-------|------------------------------------------|-------|
+| query | 검색어                                      | X     |
+| sort  | 정렬 조건, accuracy(정확도순), recency(최신순) 중 선택 | O     |
+| page  | 결과 페이지 번호                                | O     |
+| size  | 한 페이지에 보여질 문서 수                          | O     |
 
 #### 응답
 
