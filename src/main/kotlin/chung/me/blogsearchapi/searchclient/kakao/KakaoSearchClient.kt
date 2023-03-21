@@ -15,7 +15,7 @@ class KakaoSearchClient(
 ) : AbstractSearchClient() {
 
   override fun search(query: String, sort: SortType?, page: Int?, size: Int?): SearchResult {
-    logger.info("Searching Kakao")
+    logger.debug("Searching Kakao")
 
     return buildWebClient()
       .get()

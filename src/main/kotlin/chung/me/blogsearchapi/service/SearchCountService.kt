@@ -12,7 +12,6 @@ class SearchCountService(
 
   @Transactional
   fun increaseSearchCount(query: String) {
-    println("query: $query")
     val lowercaseQuery = query.lowercase()
     val searchCount = searchCountRepository.findByQuery(lowercaseQuery)
       ?: SearchCount(lowercaseQuery)
