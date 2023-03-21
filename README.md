@@ -3,6 +3,11 @@
 ## 실행 환경
 Java 17
 
+## 실행 방법
+```bash
+java -jar ./blog-search-api.jar --KAKAO_KEY={KAKAO_API_KEY} --NAVER_CLIENT_ID={NAVER_API_CLIENT_ID} --NAVER_CLIENT_SECRET={NAVER_API_CLIENT_SECRET}
+```
+
 ## Executable jar 다운로드 링크
 [Executable jar 다운로드 링크](https://github.com/sinna94/blog-search-api/raw/master/blog-search-api.jar)
 
